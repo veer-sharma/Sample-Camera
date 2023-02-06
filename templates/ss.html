@@ -13,13 +13,19 @@
     <body>
     <div class="container">
         <video id="myVideo" autoplay></video>
+        <canvas id="canvasr"  width="320" height="240"></canvas>
         <button type="submit" class="btn" onclick="sendImagefromCanvas()">Show</button>
+        <form action="/image" method="POST" enctype="multipart/form-data">
+            <h2>Name: {{ name }}</h2>
+
+        </form>
     </div>
 
     <script>
 
         let v = document.getElementById("myVideo");
         let popup = document.getElementById("open-popup");
+        let canvasr = document.querySelector("#canvasr");
 
         function open(){
             v.classList.add("open=popup");
@@ -42,6 +48,9 @@
                     console.error(xhr);
             };
             xhr.send(formdata);
+
+            canvasr.getContext('2d').drawImage(v, 0, 0, canvasr.width, canvasr.height);
+
         }
 
         //Get the image from the canvas
