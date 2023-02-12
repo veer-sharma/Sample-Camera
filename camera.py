@@ -33,10 +33,6 @@ def image():
     blob = request.files['image'].read()  # get the image
     blob2 = base64.b64encode(blob)
     print(blob2)
-    #print(blob)
-    f = ('%s.jpeg' % time.strftime("%Y%m%d-%H%M%S"))
-    data = base64.b64decode(baseimg)
-    #print(data)
     image_object = Image.open(io.BytesIO(blob))
     print(image_object)
     #image_object.show()
@@ -48,17 +44,24 @@ def image():
     (x, y, w, h) = extract_faces(frame)[0]
     #cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 20), 2)
     face = cv2.resize(frame[y:y + h, x:x + w], (50, 50))
-    identified_person = identify_face(face.reshape(1, -1))[0]
+    image.identified_person = identify_face(face.reshape(1, -1))[0]
+    #if request.method == 'POST':
+    #identified_person = "Apple"
     print("images saved!!!!!!!")
-    print(identified_person)
+    print(image.identified_person[:-2])
 
-    return render_template('ss.html', name=identified_person)
+    #return render_template('ss.html', identified_person=identified_person)
+    return "Success"
 
+@app.route('/ass', methods=['GET', 'POST'])
+def print_name():
+    akk = image.identified_person[:-2]
+    print(akk)
 
-
+    return render_template('ss.html', akk=akk)
 
 if __name__ == '__main__':
-    #app.run(host='192.168.1.105', port=5000, debug=True)
-    #app.run()
+    #app.run(host='192.168.1.101', port=5000, debug=True)
+    #app.run(debug=True)
     from waitress import serve
     serve(app, host="0.0.0.0", port=5000)
