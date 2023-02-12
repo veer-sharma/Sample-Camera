@@ -55,7 +55,10 @@ def image():
 
 @app.route('/ass', methods=['GET', 'POST'])
 def print_name():
-    akk = image.identified_person
+    try:
+        akk = image.identified_person[:-2]
+    except Exception as e:
+        akk = "Abhishek"
     print(akk)
 
     return render_template('ss.html', akk=akk)
