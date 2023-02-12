@@ -14,10 +14,9 @@
     <div class="container">
         <video id="myVideo" autoplay></video>
         <canvas id="canvasr"  width="320" height="240"></canvas>
-        <button type="submit" class="btn" onclick="sendImagefromCanvas()">Show</button>
-        <form action="/image" method="POST" enctype="multipart/form-data">
-            <h2>Name: {{ name }}</h2>
-
+        <form action="/ass" method="POST">
+            <h2>Name: {{ akk }}</h2>
+            <input type = "submit" value = "Detect" />
         </form>
     </div>
 
@@ -59,7 +58,6 @@
             //Make sure the canvas is set to the current video size
             imageCanvas.width = v.videoWidth;
             imageCanvas.height = v.videoHeight;
-
             imageCtx.drawImage(v, 0, 0, v.videoWidth, v.videoHeight);
 
             //Convert the canvas to blob and post the file
