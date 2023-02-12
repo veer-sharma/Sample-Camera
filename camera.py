@@ -55,7 +55,7 @@ def image():
 
 @app.route('/ass', methods=['GET', 'POST'])
 def print_name():
-    akk = image.identified_person[:-2]
+    akk = image.identified_person
     print(akk)
 
     return render_template('ss.html', akk=akk)
