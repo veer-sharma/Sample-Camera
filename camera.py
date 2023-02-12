@@ -44,22 +44,23 @@ def image():
     (x, y, w, h) = extract_faces(frame)[0]
     #cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 20), 2)
     face = cv2.resize(frame[y:y + h, x:x + w], (50, 50))
-    image.identified_person = identify_face(face.reshape(1, -1))[0]
+    global identified_person
+    identified_person = identify_face(face.reshape(1, -1))[0]
     #if request.method == 'POST':
     #identified_person = "Apple"
     print("images saved!!!!!!!")
-    print(image.identified_person[:-2])
+    print(identified_person[:-2])
 
     #return render_template('ss.html', identified_person=identified_person)
     return "Success"
 
 @app.route('/ass', methods=['GET', 'POST'])
 def print_name():
-    try:
-        akk = image.identified_person[:-2]
-    except Exception as e:
-        akk = "Abhishek"
-    print(akk)
+    #try:
+    akk = identified_person[:-2]
+    #except Exception as e:
+    #    akk = "Abhishek"
+    #print(akk)
 
     return render_template('ss.html', akk=akk)
 
