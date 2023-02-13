@@ -1,5 +1,5 @@
 from flask import Flask, request, Response, render_template
-import time
+import logging
 import PIL.Image as Image
 from img import baseimg
 import base64
@@ -29,12 +29,14 @@ def index():
 # save the image as a picture
 @app.route('/image', methods=['GET', 'POST'])
 def image():
-
+    logging.basicConfig(level=logging.DEBUG)
+    logging.debug(f"This is in the image and blob untransferred")
     blob = request.files['image'].read()  # get the image
     blob2 = base64.b64encode(blob)
     print(blob2)
     image_object = Image.open(io.BytesIO(blob))
     print(image_object)
+    logging.debug(f"This is in the image and blob transferred")
     #image_object.show()
     decodeit = open('hello_level.jpeg', 'wb')
     decodeit.write(base64.b64decode((blob2)))
@@ -44,8 +46,11 @@ def image():
     (x, y, w, h) = extract_faces(frame)[0]
     #cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 20), 2)
     face = cv2.resize(frame[y:y + h, x:x + w], (50, 50))
+    logging.debug(f"This is before the image and name detection")
     global identified_person
     identified_person = identify_face(face.reshape(1, -1))[0]
+    logging.debug(f"This is in the image and name detected as {identified_person}")
+    logging.error("This is Error")
     #if request.method == 'POST':
     #identified_person = "Apple"
     print("images saved!!!!!!!")
@@ -57,6 +62,7 @@ def image():
 @app.route('/ass', methods=['GET', 'POST'])
 def print_name():
     #try:
+    logging.debug(f"This is in the print_name")
     akk = identified_person[:-2]
     #except Exception as e:
     #    akk = "Abhishek"
