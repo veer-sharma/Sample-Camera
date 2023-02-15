@@ -50,7 +50,6 @@ def image():
     global identified_person
     identified_person = identify_face(face.reshape(1, -1))[0]
     logging.debug(f"This is in the image and name detected as {identified_person}")
-    logging.error("This is Error")
     #if request.method == 'POST':
     #identified_person = "Apple"
     print("images saved!!!!!!!")
