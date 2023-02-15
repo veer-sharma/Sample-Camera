@@ -4,4 +4,4 @@ numpy
 Pillow
 waitress
 joblib
-sklearn
+scikit-learn
